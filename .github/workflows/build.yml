@@ -1,0 +1,19 @@
+name: Test Backend
+
+on:
+  push:
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4 
+
+        - name: Run
+          run: docker compose up -d --build
+
+        - name: Wait
+          run: sleep 10
+
+        - name: Test
+          run: curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/api
